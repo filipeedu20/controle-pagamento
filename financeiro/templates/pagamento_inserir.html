@@ -1,0 +1,17 @@
+<html>
+    <body>
+        <h1>Cadastro de Contas a pagar</h1>
+        <form action="/financeiro/cadastrar_pagar/" method="post">
+        {% csrf_token %}
+        <p>Data Vencimento: <input type="text" name='vencimento'></p>
+        <p>Valor: <input type="text" name='valor'></p>
+        <p>Descrição: <input type="text" name='descricao'></p>
+			 <select name='classificacao' id='classificacao'>
+				{% for c in classPg %}
+					<option value = {{ c.id }}> {{ c.nome }} </option>
+				{% endfor %}		
+			</select>
+		</p>
+        <p><input type="submit" value='Salvar'></p>
+    </body>
+</html>

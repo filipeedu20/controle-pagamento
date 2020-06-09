@@ -1,0 +1,19 @@
+<html>
+    <body>
+        {% csrf_token %}
+        <h1>Regitro de classe de Pagamento </h1>
+        <br>
+        {% load static %}
+        {% if lista %}
+            <ul>
+            {% for classe in lista %}
+                <li>
+                    {{classe.nome}}</a>
+                </li> 
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há Departamento cadastradas</p>
+        {% endif %}
+    </body>
+</html>

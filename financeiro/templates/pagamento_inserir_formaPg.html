@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <form action="/financeiro/pagamento_salvar_formaPg/" method="post">
+            {% csrf_token %}
+            <h1>Cadastro Forma de pagamento </h1>
+            <p>Nome: <input type="text" name='nome'></p>
+            <p>Descricao: <input type="text" name='descricao'></p>
+            <p><input type="submit" value='salvar'></p>
+        </form>
+    </body>
+</html>

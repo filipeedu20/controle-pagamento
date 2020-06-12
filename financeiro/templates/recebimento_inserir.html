@@ -1,0 +1,21 @@
+
+
+
+<div class='container'>
+    <div class='col-lg-12'>
+        <h1>Cadastro de Contas a receber </h1>
+        <form action="/financeiro/recebimento_cadastro/" method="post">
+        {% csrf_token %}
+        <p>Data Prevista: <input type="text" name='dataPrevista' class='form-control' required></p>
+        <p>Valor: <input type="text" name='valor' class='form-control'></p>
+        <p>Descrição: <input type="text" name='descricao' class='form-control' required></p>
+        Tipo
+            <select name='classificacao' id='classificacao' class='form-control' required>
+                {% for c in classRec %}
+                    <option value = {{ c.id }}> {{ c.nome }} </option>
+                {% endfor %}		
+            </select>
+        </p>
+        <p><input type="submit" value='Salvar' class='btn btn-default'></p>
+    </div>
+<div>

@@ -4,27 +4,70 @@ from django.utils.datastructures import MultiValueDictKeyError
 
 class ContasPagarDAO(models.Manager):
     def insert(self,dataVencimento,valor,descricao,classificacao):
-        pag = Contas_pagar(dataVencimento = dataVencimento,valor = valor,descricao = descricao,classificacao=classificacao)
+        pag = Contas_pagar(dataVencimento = dataVencimento,valor = valor,descricao = descricao,classificacao_id=classificacao)
         pag.save()
         return pag
+
+    def alterar(self,id, dataVencimento,dataPagamento,valor,situacao,descricao,classificacao):
+        pag = Contas_pagar.objects.get(id=id)
+        if not dataPagamento:
+            dataPagamento = None
+        pag.dataVencimento = dataVencimento
+        pag.dataPagamento=dataPagamento
+        pag.valor = valor
+        pag.descricao = descricao
+        pag.classificacao_id=classificacao
+        pag.situacao
+        pag.save()
+        return pag
+
+    def remover(self, id):
+        pag = Contas_pagar.objects.get(id=id)
+        pag.delete()
 
 class Contas_pagar(models.Model):
     dataVencimento = models.DateField(null=True)
     dataPagamento = models.DateField(null=True)
     valor = models.DecimalField(null=True, blank=True,max_digits=7, default=None, decimal_places=2)
     descricao = models.CharField(max_length=200, null=True)
-    classificacao = models.ForeignKey("ClassificaPagamento",blank=True, null=True, on_delete=models.CASCADE)
-    situacao = models.IntegerField(default=0)
+    classificacao = models.ForeignKey("ClassificaPagamento",blank=True, null=True, on_delete=models.SET_NULL)
+    situacao = models.CharField(max_length=200,default='aberto')
 
     objects = ContasPagarDAO()
 
+class ContasReceberDAO(models.Manager):
+    def insert(self,dataPrevista,valor,descricao,classificacao):
+        rec = Contas_receber(dataPrevista = dataPrevista,dataRecebimento = dataRecebimento,valor = valor,descricao = descricao,classificacao_id=classificacao)
+        rec.save()
+        return rec
+
+    def alterar(self,id, dataPrevista,dataRecebimento,valor,situacao,descricao,classificacao):
+        rec = Contas_receber.objects.get(id=id)
+        if not dataRecebimento:
+            dataRecebimento = None
+
+        rec.dataRecebimento = dataRecebimento
+        rec.dataPrevista=dataPrevista
+        rec.valor = valor
+        rec.descricao = descricao
+        rec.classificacao_id=classificacao
+        rec.situacao
+        rec.save()
+        return rec
+
+    def remover(self, id):
+        rec = Contas_receber.objects.get(id=id)
+        rec.delete()
+
+    
 class Contas_receber(models.Model):
     dataPrevista = models.DateField(null=True)
     dataRecebimento = models.DateField(null=True)
     valor = models.DecimalField(null=True, blank=True, default=None, max_digits=7,decimal_places=2)
     descricao = models.CharField(max_length=200, null=True)
-    classificacao = models.ForeignKey("ClassificacaRec",blank=True, null=True, on_delete=models.CASCADE)
-    situacao = models.IntegerField(default=0)
+    classificacao = models.ForeignKey("ClassificacaRec",blank=True, null=True, on_delete=models.SET_NULL)
+    situacao = models.CharField(max_length=200,default='aberto')
+    objects = ContasReceberDAO()
 
 class ClassificacaPg(models.Model):
     nome = models.CharField(max_length=100, null=True)

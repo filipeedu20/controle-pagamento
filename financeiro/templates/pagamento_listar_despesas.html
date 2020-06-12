@@ -50,22 +50,27 @@
 </nav>
 <div class='container'>
     <div class='col-lg-12'>
-             <h1>Cadastro de Contas a pagar</h1>
-            <form action="/financeiro/cadastrar_pagar/" method="post">
-            {% csrf_token %}
-            <p>Data Vencimento: <input type="text" name='vencimento' class='form-control' required></p>
-            <p>Valor: <input type="text" name='valor' class='form-control'></p>
-            <p>Descrição: <input type="text" name='descricao' class='form-control' required></p>
-            Tipo
-                <select name='classificacao' id='classificacao' class='form-control' required>
-                    {% for c in classPg %}
-                        <option value = {{ c.id }}> {{ c.nome }} </option>
-                    {% endfor %}		
-                </select>
-            </p>
-            <p><input type="submit" value='Salvar' class='btn btn-default'></p>
-        </div>
-    <div>
+		<h1>Lista de Contas a pagar</h1>
+		<a href="/financeiro/pagamento_inserir" class='btn btn-primary'>Cadastrar Novo</a><br />	
+		{% load static %}
+	
+		{% if lista %}
+			<ul>
+			{% for pg in lista %}
+				<li>
+					{{pg.descricao}} -  <a href="{% url 'pagamento_detalhar' pg.id %}">Detalhar </a> - <a href="{% url 'pagamento_alterar' pg.id %}">Alterar </a> - <a href="{% url 'pagamento_remove' pg.id %}">Remover </a>
+				</li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<p>Não há classificacão a pagar cadastrada</p>
+		{% endif %}
+
+
+
+    
+	</div>
+</div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

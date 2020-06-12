@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <h1>Alterar de Receita </h1>
+        <form action="/financeiro/recebimento_salvar_alteracao/" method="post">
+        {% csrf_token %}
+        <p>Descrição: <input type="text" name='descricao' value="{{rec.descricao}}"></p>
+        <p><input type="text" name='id' value="{{rec.id}}"></p>
+        <p>Data Vencimento: <input type="text" name='dataPrevista' value="{{rec.dataPrevista|date:'d/m/Y'}}"></p>
+        <p>Data Pagamento: <input type="text" name='dataRecebimento' value="{{rec.dataRecebimento|date:'d/m/Y'}}"></p>
+        <p>Valor: <input type="text" name='valor' value="{{rec.valor|floatformat:2}}"></p>
+        <p><label>Classificação: </label>
+			<select name='classificacao'>
+				{% for c in classRec %}
+                    <option value = {{ c.id }} {{c.nome|capfirst}}>{{c.nome|capfirst}}</option>
+				{% endfor %}		
+			</select>
+		</p>
+        <p><label>Situação </label>
+			<select name='situacao'>
+				{% for s in situacao %}
+                    <option value ={{s}}>{{s|capfirst}}</option>
+				{% endfor %}		
+			</select>
+		</p>
+        <p><input type="submit" value='salvar'></p>
+        </form>
+    </body>
+</html>

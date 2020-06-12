@@ -1,0 +1,20 @@
+<div class='container'>
+    <div class='col-lg-12'>
+		<h1>Lista de Contas a Receber</h1>
+		<a href="/financeiro/recebimento_inserir" class='btn btn-primary'>Cadastrar Novo</a><br />	
+		{% load static %}
+	
+		{% if lista %}
+			<ul>
+			{% for pg in lista %}
+				<li>
+					{{pg.descricao}} -  <a href="{% url 'recebimento_alterar' pg.id %}">Alterar </a> - <a href="{% url 'pagamento_remove' pg.id %}">Remover </a>
+				</li>
+			{% endfor %}
+			</ul>
+
+		{% else %}
+			<p>Não há classificacão a pagar cadastrada</p>
+		{% endif %}
+	</div>
+</div>

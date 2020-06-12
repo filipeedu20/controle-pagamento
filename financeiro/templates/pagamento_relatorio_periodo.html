@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <form action="/financeiro/pagamento_gerar_rel_periodo/" method="post">
+            {% csrf_token %}
+            <h1>Relatório de Despesas  </h1>
+            <p>Data inicial: <input type="text" name='data_inicial'></p>
+            <p>Dasta final: <input type="text" name='data_final'></p>
+            <p><input type="submit" value='Gerar relatório'></p>
+        </form>
+    </body>
+</html>
